@@ -17,17 +17,13 @@ namespace ShortUrl.Controllers
 
         public ActionResult RedirectToOriginal(string code)
         {
-            var longUrl = _db.UrlDetails.Where(x => x.Code == code).FirstOrDefault().LongUrl;
+            var longUrl = _db.UrlDetails.Where(x => x.Code == code)
+                .FirstOrDefault().LongUrl;
             if (!string.IsNullOrEmpty(longUrl))
             {
                 return Redirect(longUrl);
             }
-            return RedirectToAction("Error404");
-        }
-
-        public ActionResult Error404()
-        {
-            return View();
+            return RedirectToAction("Error");
         }
 
         public ActionResult GenerateShortUrl(string longUrl)
