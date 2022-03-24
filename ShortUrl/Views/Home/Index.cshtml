@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="row">
+    <div class="column">
+        <div class="input-group">
+            <input id="txtLongUrl" type="text" class="form-control" placeholder="Введите ссылку" />
+            <div class="btn-group">
+                <button id="btnShortUrl" class="btn btn-info">Сократить!</button>
+            </div>
+        </div>
+        <div id="shortUrl"></div>
+    </div>    
+</div>
+
+@section scripts{
+    <script>
+        $("#btnShortUrl").on("click", function(){
+            var longUrl = $("#txtLongUrl").val();
+            $.post("/Home/GenerateShortUrl", { longUrl: longUrl}, function (data){
+                $("#shortUrl").html("<a href='https://localhost:7169/" + data.code + "' target='_blank'>localhost:7169/" + data.code + "</a>")
+            })
+        })
+    </script>
+}
